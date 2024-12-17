@@ -53,6 +53,7 @@ export type DefinedSanityLiveStreamType = <const QueryString extends string>(pro
  * @public
  */
 export interface DefinedSanityLiveProps {
+  projectId?: string
   /**
    * Automatic refresh of RSC when the component <SanityLive /> is mounted.
    * Note that this is different from revalidation, which is based on tags and causes `sanityFetch` calls to be re-fetched.
@@ -239,6 +240,7 @@ export function defineLive(config: DefineSanityLiveOptions): {
       refreshOnReconnect,
       tag = 'next-loader.live',
       onError,
+      projectId: _projectId,
     } = props
     const {
       projectId,
@@ -258,7 +260,7 @@ export function defineLive(config: DefineSanityLiveOptions): {
 
     return (
       <SanityLiveClientComponent
-        projectId={projectId}
+        projectId={_projectId ?? projectId}
         dataset={dataset}
         apiHost={apiHost}
         apiVersion={apiVersion}
